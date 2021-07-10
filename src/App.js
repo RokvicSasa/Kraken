@@ -1,5 +1,6 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
 // Hoc
 import { PrivateRoute } from './hoc/PrivateRoute';
 import { PublicRoute } from "./hoc/PublicRoute";
@@ -9,32 +10,36 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Library from "./pages/Library";
 import Gallery from "./pages/Gallery";
+// Style
+import { useDarkMode } from "./components/useDarkMode";
+import { lightTheme, darkTheme } from "./style/Theme";
+import { GlobalStyles } from "./style/GlobalStyles";
+// Components
+import ToggleTheme from "./components/Buttons/ToggleTheme";
+import Navbar from "./components/Navbar";
+
+
+
 
 function App() {
+  const [theme, setTheme, mountedComponent] = useDarkMode();
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+  if (!mountedComponent) return <div />;
+
   return (
     <ProvideAuth>
-      <Router>
-        <div>
-          <AuthButton />
+      <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+        <GlobalStyles />
+        <Router>
+          {/* <ToggleTheme theme={theme} toggleTheme={setTheme} />
+          <AuthButton setUserLoggedIn={setUserLoggedIn} /> */}
 
-          <ul>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/">Dashboard</Link>
-            </li>
-            <li>
-              <Link to="/library">Library</Link>
-            </li>
-            <li>
-              <Link to="/gallery">Gallery</Link>
-            </li>
-          </ul>
+          <Navbar loggedIn={userLoggedIn} />
 
           <Switch>
             <PublicRoute path="/Login">
-              <Login />
+              <Login setUserLoggedIn={setUserLoggedIn} />
             </PublicRoute>
             <PrivateRoute path="/library">
               <Library />
@@ -46,8 +51,8 @@ function App() {
               <Dashboard />
             </PrivateRoute>
           </Switch>
-        </div>
-      </Router>
+        </Router>
+      </ThemeProvider>
     </ProvideAuth>
   );
 }

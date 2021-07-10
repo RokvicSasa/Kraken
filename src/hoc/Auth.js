@@ -48,7 +48,7 @@ function useProvideAuth() {
   };
 }
 
-export function AuthButton() {
+export function AuthButton({ setUserLoggedIn }) {
   let history = useHistory();
   let auth = useAuth();
 
@@ -57,6 +57,7 @@ export function AuthButton() {
       Welcome!{" "}
       <button
         onClick={() => {
+          setUserLoggedIn(false);
           auth.signout(() => history.push("/"));
         }}
       >
