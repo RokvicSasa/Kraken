@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const Navbar = ({ loggedIn }) => {
   return (
-    <>
+    <WrapperDiv>
       {loggedIn ? (
         <ul>
           <li>
@@ -20,8 +21,15 @@ const Navbar = ({ loggedIn }) => {
           </li>
         </ul>
       ) : null}
-    </>
+    </WrapperDiv>
   );
 };
 
 export default Navbar;
+
+const WrapperDiv = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 20;
+`;

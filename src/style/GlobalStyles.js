@@ -45,6 +45,15 @@ export const GlobalStyles = createGlobalStyle`
     border-collapse: collapse;
     border-spacing: 0;
   }
+  a {
+    text-decoration: none!important;
+  }
+  input:-webkit-autofill {
+      -webkit-box-shadow:0 0 0 50px #0d1223 inset; /* Change the color to your own background color */
+      box-shadow: transparent;
+      -webkit-text-fill-color: #fff;
+  }
+
   @font-face {
     font-family: 'Rajdhani-Regular';
     src: local('Rajdhani-Regular'), url("../assets/fonts/Rajdhani-Regular.ttf") format('truetype');
@@ -81,7 +90,9 @@ export const GlobalStyles = createGlobalStyle`
   .textCenter {
     text-align: center
   }
-
+  .animate {
+    transition: 0.3s ease;
+  }
 
 
   // FLEXBOX
@@ -93,6 +104,10 @@ export const GlobalStyles = createGlobalStyle`
     justify-content: space-between;
     align-items: center;
   }
+  .flexNullCenter {
+    display: flex;
+    align-items: center;
+  }
   .flexColumn {
     flex-direction: column;
   }
@@ -101,8 +116,6 @@ export const GlobalStyles = createGlobalStyle`
     justify-content: center;
     align-items: center;
   }
-
-
 
   // FONT SIZES
   .font11 {
@@ -133,6 +146,20 @@ export const GlobalStyles = createGlobalStyle`
   .radius8 {
     border-radius: 1rem;
   }
+  .radius6 {
+    border-radius: 0.6rem;
+  }
 
+  // ANIMATION
+  .moveLabelUp {
+    animation-name: moveLabelUpAnimation;
+    animation-duration: 0.3s;
 
+    
+  }
+
+  @keyframes moveLabelUpAnimation {
+    from {top: 10px;}
+    to {top: -5px;}
+  }
 `;

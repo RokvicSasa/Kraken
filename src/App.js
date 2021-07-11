@@ -7,6 +7,7 @@ import { PublicRoute } from "./hoc/PublicRoute";
 import { ProvideAuth, AuthButton } from "./hoc/Auth";
 // Pages
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Library from "./pages/Library";
 import Gallery from "./pages/Gallery";
@@ -38,8 +39,11 @@ function App() {
           <Navbar loggedIn={userLoggedIn} />
 
           <Switch>
-            <PublicRoute path="/Login">
+            <PublicRoute path="/login">
               <Login setUserLoggedIn={setUserLoggedIn} />
+            </PublicRoute>
+            <PublicRoute path="/register">
+              <Register setUserLoggedIn={setUserLoggedIn} />
             </PublicRoute>
             <PrivateRoute path="/library">
               <Library />

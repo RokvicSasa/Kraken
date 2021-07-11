@@ -8,7 +8,6 @@ import { useAuth } from "../hoc/Auth";
 import Logo from "../assets/svg/logo";
 // Components
 import InputLabel from "../components/InputLabel";
-import Checkbox from "../components/Checkbox";
 import Button from "../components/Buttons/Button";
 
 const Login = ({ setUserLoggedIn }) => {
@@ -16,12 +15,13 @@ const Login = ({ setUserLoggedIn }) => {
   let location = useLocation();
   let auth = useAuth();
 
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [checked, setChecked] = useState(false);
+  const [repeatPpassword, setRepeatPassword] = useState("");
 
   let { from } = location.state || { from: { pathname: "/" } };
-  let login = () => {
+  let register = () => {
     setUserLoggedIn(true);
     auth.signin(() => {
       history.replace(from);
@@ -35,24 +35,20 @@ const Login = ({ setUserLoggedIn }) => {
         <TitleH1 className="bold font30">Kraken</TitleH1>
       </LogoDiv>
       <InputsDiv>
-        <h2 className="font25 bold">Login</h2>
+        <h2 className="font25 bold" style={{ marginBottom: "30px" }}>
+          Register
+        </h2>
+        <InputLabel placeholder="Email" type="email" darkMode value={email} setValue={(e) => setEmail(e)} />
         <InputLabel placeholder="Username" type="text" darkMode value={username} setValue={(e) => setUsername(e)} />
         <InputLabel placeholder="Password" type="password" darkMode value={password} setValue={(e) => setPassword(e)} />
-        <div className="flexSpaceCenter">
-          <Checkbox checked={checked} action={() => setChecked((checked) => !checked)} />
-          <div>
-            <PasswordButton onClick={() => alert("pressed")} className="font14 semibold animate">
-              Forgot Password?
-            </PasswordButton>
-          </div>
-        </div>
+        <InputLabel placeholder="Repeat Password" type="password" darkMode value={repeatPpassword} setValue={(e) => setRepeatPassword(e)} />
       </InputsDiv>
-      <Button text="LOGIN" action={() => login()} fill />
+      <Button text="REGISTER NOW" action={() => register()} fill />
       <div className="textCenter">
-        <p className="font14">Don't have an account yet?</p>
+        <p className="font14">Already have an account?</p>
       </div>
-      <Link to="/register">
-        <Button text="REGISTER" />
+      <Link to="/login">
+        <Button text="LOGIN" />
       </Link>
     </WrapperDiv>
   );
@@ -68,22 +64,12 @@ const WrapperDiv = styled.div`
 `;
 const LogoDiv = styled.div`
   text-align: center;
-  padding: 12vh 0 2vh 0;
-  min-height: 130px;
+  padding: 6vh 0 2vh 0;
+  min-height: 120px;
 `;
 const TitleH1 = styled.h1`
   padding-top: 15px;
 `;
 const InputsDiv = styled.div`
-  padding: 2vh 0;
-  margin-bottom: 2vh;
-`;
-const PasswordButton = styled.button`
-  border: 0px;
-  cursor: pointer;
-  background-color: transparent;
-  color: #fff;
-  &:hover {
-    color: #54fe2b;
-  }
+  margin: 2vh 0 4vh 0;
 `;
