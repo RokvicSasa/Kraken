@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
-const Navbar = ({ loggedIn }) => {
+const Navbar = () => {
+  const token = useSelector((state) => state.token.token);
   return (
     <WrapperDiv>
-      {loggedIn ? (
+      {token ? (
         <ul>
           <li>
             <Link to="/login">Login</Link>

@@ -73,8 +73,8 @@ export const GlobalStyles = createGlobalStyle`
   }
   .container {
     width: 100%;
+    max-width: 1184px;
     margin: 0 auto;
-    padding: 0 15px;
   }
   .regular {
     font-family: 'Rajdhani-Regular';

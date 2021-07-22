@@ -1,15 +1,14 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-// Hoc
-import {useAuth} from "./Auth";
+import { useSelector } from "react-redux";
 
 export function PrivateRoute({ children, ...rest }) {
-  let auth = useAuth();
+  const token = useSelector((state) => state.token.token);
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        auth.user ? (
+        token ? (
           children
         ) : (
           <Redirect

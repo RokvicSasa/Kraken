@@ -5,9 +5,8 @@ import CheckmarkIcon from "../assets/svg/checkmark";
 
 const Checkbox = ({ action, checked }) => {
   return (
-    <WrapperDiv className="flexNullCenter">
+    <WrapperDiv className="flexNullCenter" onClick={() => action()}>
       <CheckboxDiv
-        onClick={() => action()}
         className="flexCenter radius6 animate"
         style={{ backgroundColor: checked ? "#54FE2B" : "transparent", border: checked ? "2px solid #54fe2b" : "2px solid #252b3d" }}
       >
@@ -24,6 +23,7 @@ const Checkbox = ({ action, checked }) => {
 
 const WrapperDiv = styled.div`
   min-height: 24px;
+  cursor: pointer;
 `;
 const CheckboxDiv = styled.button`
   width: 24px;
