@@ -1,8 +1,3 @@
-import { useSelector, useDispatch } from "react-redux";
-import { addUsername } from "../redux/userSlice";
-import { addToken, removeToken } from "../redux/tokenSlice";
-
-
 // import store from "../store.js";
 const API_ENDPOINT = "http://localhost:1337/";
 
@@ -33,7 +28,7 @@ export const apiLogin = async (username, password, callback) => {
       callback(responseJson);
     })
     .catch((error) => {
-      console.log("ERROR INSIDE API CALL", error);
+      callback(error);
     });
 };
 

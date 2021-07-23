@@ -5,16 +5,17 @@ import EyeClosedIcon from "../assets/svg/eye-closed";
 import EyeOpenIcon from "../assets/svg/eye-open";
 
 
-const InputLabel = ({ placeholder, darkMode, type, value, setValue }) => {
-  // Dark Mode prop is added on inputs where dark mode is persistent like Login page and register
+const InputLabel = ({ placeholder, type, value, setValue, error, autoComplete, name }) => {
   // If type prop is "password" hide/show eye button is automaticly added
-
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
     <InputDiv>
       {value && value.length > 0 ? <LabelLabel className="semibold font14 moveLabelUp">{placeholder}</LabelLabel> : null}
       <InputInput
+        name={name}
+        autoComplete={autoComplete}
+        error={error}
         style={{ padding: type === "password" ? "0 50px 0 20px" : "0 20px" }}
         className="radius8 font15 semibold"
         type={type === "password" && passwordVisible ? "text" : type}
@@ -22,6 +23,7 @@ const InputLabel = ({ placeholder, darkMode, type, value, setValue }) => {
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
+      {error ? <ErrorP className="font12">{placeholder} Is Required!</ErrorP> : null}
       {type === "password" ? (
         <EyeWrapperBtn onClick={() => setPasswordVisible((passwordVisible) => !passwordVisible)} className="flexCenter">
           {passwordVisible ? <EyeClosedIcon /> : <EyeOpenIcon />}
@@ -34,13 +36,14 @@ const InputLabel = ({ placeholder, darkMode, type, value, setValue }) => {
 const InputDiv = styled.div`
   width: 100%;
   position: relative;
-  margin: 22px 0;
+  min-height: 73px;
+  margin-top: 10px;
 `;
 const InputInput = styled.input`
   box-sizing: border-box;
   width: 100%;
   min-height: 56px;
-  border: 2px solid #252b3d;
+  border: ${(props) => (props.error ? "2px solid #f52f64" : "2px solid #252b3d")};
   color: #fff;
   background-color: #0d1223;
   ::placeholder,
@@ -53,7 +56,7 @@ const InputInput = styled.input`
   outline: none;
   &:focus {
     background-color: #0d1223;
-    border: 2px solid #54fe2b;
+    border: ${(props) => (props.error ? "2px solid #f52f64" : "2px solid #4e4ac8")};
   }
 `;
 const LabelLabel = styled.label`
@@ -63,7 +66,7 @@ const LabelLabel = styled.label`
   z-index: 10;
   background-color: #0d1223;
   padding: 0 10px;
-  color: #54fe2b;
+  color: #615dfa;
 `;
 const EyeWrapperBtn = styled.button`
   background-color: transparent;
@@ -73,6 +76,10 @@ const EyeWrapperBtn = styled.button`
   top: 0px;
   border: 0px;
   cursor: pointer;
+`;
+const ErrorP = styled.p`
+  padding: 5px 0 0 22px;
+  color: #e75e82;
 `;
 
 export default InputLabel;

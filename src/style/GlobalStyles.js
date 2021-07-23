@@ -121,6 +121,9 @@ export const GlobalStyles = createGlobalStyle`
   .font11 {
     font-size: 1.1rem;
   }
+  .font12 {
+    font-size: 1.2rem;
+  }
   .font13 {
     font-size: 1.3rem;
   }
@@ -154,12 +157,37 @@ export const GlobalStyles = createGlobalStyle`
   .moveLabelUp {
     animation-name: moveLabelUpAnimation;
     animation-duration: 0.3s;
-
-    
   }
-
   @keyframes moveLabelUpAnimation {
     from {top: 10px;}
     to {top: -5px;}
   }
+
+  // SPACING
+  .margin20-0 {
+    margin: 20px 0;
+  }
+
+
+  // Spinner
+  .spinner {
+    width:20px;
+    height:15px;
+    --c:linear-gradient(currentColor 0 0);
+    background: 
+      var(--c) 0%   50%,
+      var(--c) 50%  50%,
+      var(--c) 100% 50%;
+    background-size:4px 100%;
+    background-repeat: no-repeat;
+    animation:spinner 1s infinite linear;
+  }
+  @keyframes spinner {
+      33%{background-size:4px 10% ,4px 100%,4px 100%}
+      50%{background-size:4px 100%,4px 10% ,4px 100%}
+      66%{background-size:4px 100%,4px 100%,4px 10% }
+  }
+
+
+
 `;

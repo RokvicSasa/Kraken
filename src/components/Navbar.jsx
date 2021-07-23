@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const token = useSelector((state) => state.token.token);
+  const token = useSelector((state) => state.user.token);
   return (
     <WrapperDiv>
       {token ? (

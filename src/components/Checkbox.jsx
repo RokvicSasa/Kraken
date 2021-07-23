@@ -8,7 +8,7 @@ const Checkbox = ({ action, checked }) => {
     <WrapperDiv className="flexNullCenter" onClick={() => action()}>
       <CheckboxDiv
         className="flexCenter radius6 animate"
-        style={{ backgroundColor: checked ? "#54FE2B" : "transparent", border: checked ? "2px solid #54fe2b" : "2px solid #252b3d" }}
+        style={{ backgroundColor: checked ? "#615dfa" : "transparent", border: checked ? "2px solid #615dfa" : "2px solid #252b3d" }}
       >
         {checked ? (
           <IconWrapperDiv className="flexCenter">
@@ -32,7 +32,7 @@ const CheckboxDiv = styled.button`
   cursor: pointer;
   position: relative;
   &:hover {
-    border: 2px solid #54fe2b!important;
+    border: 2px solid #615dfa!important;
   }
 `;
 const IconWrapperDiv = styled.div`

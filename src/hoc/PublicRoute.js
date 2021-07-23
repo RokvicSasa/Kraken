@@ -3,7 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export function PublicRoute({ children, ...rest }) {
-  const token = useSelector((state) => state.token.token);
+  const token = useSelector((state) => state.user.token);
   return (
     <Route
       {...rest}

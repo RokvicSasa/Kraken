@@ -7,8 +7,8 @@ import Logo from "../assets/svg/logo";
 // Img-s
 import AuthBg from "../assets/img/auth-bg.png";
 // Components
-import InputLabel from "../components/InputLabel";
-import Button from "../components/Buttons/Button";
+import InputLabel from "../components/InputLabel.jsx";
+import Button from "../components/Buttons/Button.jsx";
 
 const Login = ({ setUserLoggedIn }) => {
   let history = useHistory();
