@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 // Slices
-import userSlice from "./userSlice";
+import { userSlice } from "./userSlice";
 import darkModeSlice from "./darkModeSlice";
 
 export const store = configureStore({
   reducer: {
-    user: userSlice,
+    user: userSlice.reducer,
     darkMode: darkModeSlice,
   },
 });

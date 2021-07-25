@@ -1,9 +1,6 @@
-// import store from "../store.js";
-const API_ENDPOINT = "http://localhost:1337/";
+export const API_ENDPOINT = "http://localhost:1337/";
 
-var apiHeaders = new Headers();
-apiHeaders.append("Content-Type", "application/json");
-var getData = {
+export const getData = {
   method: "GET",
   headers: {
     Accept: "application/json",
@@ -11,7 +8,7 @@ var getData = {
   },
 };
 
-var postData = {
+export const postData = {
   method: "POST",
   headers: {
     Accept: "application/json",
@@ -19,17 +16,5 @@ var postData = {
   },
 };
 
-export const apiLogin = async (username, password, callback) => {
-  
-  postData.body = JSON.stringify({ identifier: username, password: password });
-  fetch(`${API_ENDPOINT}auth/local`, postData)
-    .then((response) => response.json())
-    .then((responseJson) => {
-      callback(responseJson);
-    })
-    .catch((error) => {
-      callback(error);
-    });
-};
 
 

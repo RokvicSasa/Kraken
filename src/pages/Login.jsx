@@ -1,68 +1,62 @@
-import React, { useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-// Svg-s
+// Assets
 import Logo from "../assets/svg/logo";
-// Img-s
 import AuthBg from "../assets/img/auth-bg.png";
 // Components
 import InputLabel from "../components/InputLabel.jsx";
 import Checkbox from "../components/Checkbox.jsx";
 import Button from "../components/Buttons/Button.jsx";
-// API
-import {apiLogin} from "../api/Api";
 // Redux
-import { useDispatch } from "react-redux";
-import { addUsername, addToken } from "../redux/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser, userSelector, clearState } from "../redux/userSlice";
 
 const Login = () => {
-  const dispatch = useDispatch();
   let history = useHistory();
-  let location = useLocation();
-  let { from } = location.state || { from: { pathname: "/" } };
+  const dispatch = useDispatch();
+  const { isFetching, isSuccess, isError, errorMessage } = useSelector(userSelector);
   // Local State
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [checked, setChecked] = useState(false);
-  const [isLoading, setIsLoading] = useState(false)
+  const [pageError, setPageError] = useState(null)
 
   const loginHandler = () => {
     if (email.length < 1) {
       setEmailError(true);
-    }else if (password.length < 1) {
+    } else if (password.length < 1) {
       setPasswordError(true);
     } else {
-      setIsLoading(true);
-      apiLogin(email, password, function (result) {
-        if (result.jwt && result.jwt !== "") {
-          setIsLoading(false);
-          history.replace(from);
-          dispatch(addToken(result.jwt));
-          dispatch(addUsername(result.user.username));
-          localStorage.setItem("token", result.jwt);
-          localStorage.setItem("username", result.user.username);
-        } else {
-          setIsLoading(false);
-          setEmail("");
-          setPassword("");  
-          if (result.statusCode === 400) {
-            setError("Incorrect email address or password, please try again");
-          }else {
-            setError("There is an error logging you. Please try again later.");
-          }
-        }
-      });
+      dispatch(loginUser({email, password}));
     }
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearState());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (isError) {
+      setPageError(errorMessage);
+      dispatch(clearState());
+    }
+    if (isSuccess) {
+      dispatch(clearState());
+      history.push("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isError, isSuccess]);
 
   const resetErrors = () => {
     setEmailError(false);
     setPasswordError(false);
-    setError(null);
   }
 
   return (
@@ -77,7 +71,7 @@ const Login = () => {
         </LogoDiv>
         <InputsDiv>
           <h2 className="font25 bold margin20-0">Login</h2>
-          {error ? <ErrorP className="font13">{error}</ErrorP> : null}
+          {pageError && errorMessage ? <ErrorP className="font13">{errorMessage}</ErrorP> : null}
           <form>
             <InputLabel
               name="email"
@@ -115,7 +109,7 @@ const Login = () => {
             </div>
           </div>
         </InputsDiv>
-        <Button text="LOGIN" action={() => loginHandler()} fill isLoading={isLoading} />
+        <Button text="LOGIN" action={() => loginHandler()} fill isLoading={isFetching} />
         <div className="textCenter">
           <p className="font14">Don't have an account yet?</p>
         </div>
@@ -181,4 +175,5 @@ const BgImg = styled.img`
 const ErrorP = styled.p`
   text-align: center;
   color: #e75e82;
+  margin-bottom: 20px;
 `;

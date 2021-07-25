@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { useSelector } from "react-redux";
 // Hoc
-import { PrivateRoute } from './hoc/PrivateRoute';
-import { PublicRoute } from "./hoc/PublicRoute";
+import { PrivateRoute } from './helpers/PrivateRoute';
+import { PublicRoute } from "./helpers/PublicRoute";
 // Pages
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
@@ -19,7 +19,7 @@ import ToggleTheme from "./components/Buttons/ToggleTheme.jsx";
 import Navbar from "./components/Navbar.jsx";
 // Redux
 import { useDispatch } from "react-redux";
-import { addUsername, addToken } from "./redux/userSlice";
+import { addToken, addUsername, addEmail } from "./redux/userSlice";
 import { setMode } from "./redux/darkModeSlice"; 
 
 function App() {
@@ -29,6 +29,7 @@ function App() {
   useEffect(() => {
     dispatch(addToken(localStorage.getItem("token")));
     dispatch(addUsername(localStorage.getItem("username")));
+    dispatch(addEmail(localStorage.getItem("email")));
     dispatch(setMode(localStorage.getItem("theme") ? localStorage.getItem("theme") : "dark"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
