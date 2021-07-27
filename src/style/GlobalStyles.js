@@ -93,7 +93,9 @@ export const GlobalStyles = createGlobalStyle`
   .animate {
     transition: 0.3s ease;
   }
-
+  .pointer {
+    cursor: pointer;
+  }
 
   // FLEXBOX
   .flex {

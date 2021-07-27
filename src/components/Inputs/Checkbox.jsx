@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 // Svg-s
-import CheckmarkIcon from "../assets/svg/checkmark";
+import CheckmarkIcon from "../../assets/svg/checkmark";
 
 const Checkbox = ({ action, checked }) => {
   return (

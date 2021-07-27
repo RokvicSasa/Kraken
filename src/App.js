@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { useSelector } from "react-redux";
-// Hoc
+// Helpers
 import { PrivateRoute } from './helpers/PrivateRoute';
 import { PublicRoute } from "./helpers/PublicRoute";
 // Pages
@@ -15,8 +15,7 @@ import Gallery from "./pages/Gallery.jsx";
 import { lightTheme, darkTheme } from "./style/Theme";
 import { GlobalStyles } from "./style/GlobalStyles";
 // Components
-import ToggleTheme from "./components/Buttons/ToggleTheme.jsx";
-import Navbar from "./components/Navbar.jsx";
+import Navbar from "./components/Navbar/Navbar.jsx";
 // Redux
 import { useDispatch } from "react-redux";
 import { addToken, addUsername, addEmail } from "./redux/userSlice";
@@ -38,7 +37,6 @@ function App() {
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <GlobalStyles />
       <Router>
-        <ToggleTheme theme={theme} />
         <Navbar />
         <Switch>
           <PublicRoute exact path="/login">
@@ -53,7 +51,7 @@ function App() {
           <PrivateRoute exact path="/gallery">
             <Gallery />
           </PrivateRoute>
-          <PrivateRoute exact  path="/">
+          <PrivateRoute exact path="/">
             <Dashboard />
           </PrivateRoute>
         </Switch>

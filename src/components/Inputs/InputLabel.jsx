@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 // Svg-s
-import EyeClosedIcon from "../assets/svg/eye-closed";
-import EyeOpenIcon from "../assets/svg/eye-open";
+import EyeClosedIcon from "../../assets/svg/eye-closed";
+import EyeOpenIcon from "../../assets/svg/eye-open";
 
 
 const InputLabel = ({ placeholder, type, value, setValue, error, autoComplete, name }) => {

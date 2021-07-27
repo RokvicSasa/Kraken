@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import Logo from "../assets/svg/logo";
 import AuthBg from "../assets/img/auth-bg.png";
 // Components
-import InputLabel from "../components/InputLabel.jsx";
-import Checkbox from "../components/Checkbox.jsx";
+import InputLabel from "../components/Inputs/InputLabel.jsx";
+import Checkbox from "../components/Inputs/Checkbox.jsx";
 import Button from "../components/Buttons/Button.jsx";
 // Redux
 import { useSelector, useDispatch } from "react-redux";

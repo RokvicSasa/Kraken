@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Dashboard = () => {
   return (
     <WrapperDiv>
-      <h1>Dashboard</h1>
+
     </WrapperDiv>
   );
 };
