@@ -55,7 +55,7 @@ const SidebarMobile = ({ sidebarMobileOpen, closeMobileSidebar }) => {
 export default SidebarMobile;
 
 const BackdropDiv = styled.div`
-  background-color: ${(props) => props.theme.body2};
+  background-color: ${(props) => props.theme.navbar};
   width: 100%;
   height: 100vh;
   position: fixed;

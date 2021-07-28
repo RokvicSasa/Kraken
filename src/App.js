@@ -39,19 +39,19 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-          <PublicRoute exact path="/login">
+          <PublicRoute path="/login">
             <Login />
           </PublicRoute>
-          <PublicRoute exact path="/register">
+          <PublicRoute path="/register">
             <Register />
           </PublicRoute>
-          <PrivateRoute exact path="/library">
+          <PrivateRoute path="/librarry">
             <Library />
           </PrivateRoute>
-          <PrivateRoute exact path="/gallery">
+          <PrivateRoute path="/gallery">
             <Gallery />
           </PrivateRoute>
-          <PrivateRoute exact path="/">
+          <PrivateRoute path="/">
             <Dashboard />
           </PrivateRoute>
         </Switch>

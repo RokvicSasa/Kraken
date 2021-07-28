@@ -6,7 +6,6 @@ import SidebarMobile from "../Navbar/SidebarMobile";
 // Assets
 import LogoImg from "../../assets/svg/logo";
 import BurgerImg from "../../assets/svg/burger";
-import LoopImg from "../../assets/svg/loop";
 
 const NavbarTop = () => {
   const [sidebarMobileOpen, setSidebarMobileOpen] = useState(false);
@@ -22,11 +21,8 @@ const NavbarTop = () => {
           <BurgerImg />
         </BurgerWrapper>
       </LeftSection>
-      <RightSection className="flexSpaceCenter">
+      <RightSection className="flexNullCenter">
         <SearchInput />
-        <SearchButton className="flexCenter pointer" onClick={() => alert("pressed")}>
-          <LoopImg />
-        </SearchButton>
       </RightSection>
     </WrapperDiv>
   );
@@ -62,13 +58,5 @@ const BurgerWrapper = styled.button`
   height: 100%;
   border: 0px;
   outline: none;
-  background-color: transparent;
-`;
-const SearchButton = styled.button`
-  height: 100%;
-  width: 60px;
-  border: 0px;
-  outline: none;
-  padding: 0 15px;
   background-color: transparent;
 `;

@@ -3,36 +3,38 @@ import styled from "styled-components";
 // Assets
 import AvatarImg from "../../assets/img/avatar.png";
 
-const Avatar = () => {
+const Avatar = ({ small }) => {
   return (
-    <AvatarWrapperDiv>
-      <AvatarImgWrap src={AvatarImg} alt="background" />
-      <StatusDiv></StatusDiv>
+    <AvatarWrapperDiv small={small} className="flexCenter pointer">
+      <AvatarImgWrap small={small} src={AvatarImg} alt="background" />
+      <StatusDiv small={small}></StatusDiv>
     </AvatarWrapperDiv>
   );
 };
 
 export default Avatar;
 
-const AvatarWrapperDiv = styled.div`
-  padding: 10px;
-  width: 88px;
-  height: 88px;
+const AvatarWrapperDiv = styled.button`
+  width: ${(props) => (props.small ? "80px" : "88px")};
+  height: ${(props) => (props.small ? "80px" : "88px")};
   margin: 0 auto;
   position: relative;
+  border: 0px;
+  outline: none;
+  background-color: transparent;
 `;
 const AvatarImgWrap = styled.img`
-  width: 68px;
-  height: 68px;
+  width: ${(props) => (props.small ? "53px" : "68px")};
+  height: ${(props) => (props.small ? "53px" : "68px")};
   border-radius: 10px;
 `;
 const StatusDiv = styled.div`
   background-color: #54fe2b;
-  border: 6px solid ${(props) => props.theme.sidebarBg};
-  width: 30px;
-  height: 30px;
+  border: 6px solid ${(props) => (props.small ? props.theme.navbar : props.theme.sidebarBg)};
+  width: ${(props) => (props.small ? "25px" : "30px")};
+  height: ${(props) => (props.small ? "25px" : "30px")};
   border-radius: 50%;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: ${(props) => (props.small ? "5px" : "0")};
+  right: ${(props) => (props.small ? "-8px" : "0")};
 `;

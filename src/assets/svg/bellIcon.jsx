@@ -2,7 +2,7 @@ import * as React from "react";
 
 function SvgComponent(props) {
   return (
-    <svg data-name="Group 796" xmlns="http://www.w3.org/2000/svg" width={22.502} height={24.588} viewBox="0 0 22.502 24.588" {...props}>
+    <svg data-name="Group 796" xmlns="http://www.w3.org/2000/svg" width={props.width} height={props.height} viewBox="0 0 22.502 24.588" {...props}>
       <g data-name="Group 772">
         <path
           data-name="Path 976"

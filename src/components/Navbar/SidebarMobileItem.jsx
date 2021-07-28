@@ -25,7 +25,7 @@ const SidebarMobileItem = ({ icon, title, action, withSwitch }) => {
   } else if (icon === "logout") {
     menuIcon = <LogoutIcons color={currentTheme.text} />;
   } else if (icon === "bell") {
-    menuIcon = <BellIcon color={currentTheme.text} />;
+    menuIcon = <BellIcon width={22} height={24} color={currentTheme.text} />;
   } else if (icon === "gear") {
     menuIcon = <GearIcon color={currentTheme.text} />;
   } else if (icon === "sun") {

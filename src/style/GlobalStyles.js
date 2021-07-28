@@ -76,6 +76,14 @@ export const GlobalStyles = createGlobalStyle`
     max-width: 1184px;
     margin: 0 auto;
   }
+  .safeArea {
+    padding: 80px 0 0 0;
+  }
+  @media only screen and (max-width: 576px) {
+    .safeArea {
+      padding: 60px 0;
+    }
+  }
   .regular {
     font-family: 'Rajdhani-Regular';
   }
@@ -95,6 +103,9 @@ export const GlobalStyles = createGlobalStyle`
   }
   .pointer {
     cursor: pointer;
+  }
+  .relative {
+    position: relative;
   }
 
   // FLEXBOX
