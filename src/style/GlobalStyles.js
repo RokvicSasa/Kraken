@@ -79,6 +79,7 @@ export const GlobalStyles = createGlobalStyle`
     width: 100%;
     max-width: 1184px;
     margin: 0 auto;
+    padding: 30px 30px 0 30px;
   }
   .safeArea {
     padding: 80px 0 0 0;
@@ -102,6 +103,9 @@ export const GlobalStyles = createGlobalStyle`
     .sidebarClosed {
       margin-left: 0px;
       width: 100%;
+    }
+    .container {
+      padding: 15px 15px 0 15px;
     }
   }
   .regular {
@@ -180,6 +184,9 @@ export const GlobalStyles = createGlobalStyle`
   }
   .font30 {
     font-size: 3.0rem;
+  }
+  .font40 {
+    font-size: 4.0rem;
   }
   // BORDER RADIUS
   .radius8 {

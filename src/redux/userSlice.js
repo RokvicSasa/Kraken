@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { API_ENDPOINT, postData } from "../api/Api";
+import { API_ENDPOINT, postData } from "../helpers/Api";
 
 export const signupUser = createAsyncThunk("users/signupUser", async ({ name, email, password }, thunkAPI) => {
   try {

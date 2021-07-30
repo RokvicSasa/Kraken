@@ -28,7 +28,7 @@ const Avatar = ({ small }) => {
           <Backdrop transparent action={() => setShowDropdown(false)} />
           <Dropdown showDropdown={showDropdown}>
             <DropdownInner>
-              <StyledLink to="./about" exact className="flexNullCenter animate pointer">
+              <StyledLink to="./editprofile" exact className="flexNullCenter animate pointer">
                 <p className="font15 medium">Edit Profile</p>
               </StyledLink>
               <StyledBtn className="flexNullCenter animate pointer" onClick={() => dispatch(togglePopup(true))}>
