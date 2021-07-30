@@ -8,19 +8,19 @@ const TabBar = () => {
     <WrapperDiv>
       <UlWrap className="flexSpaceCenter">
         <ListWraper>
-          <TabBarItem icon="dashboard" path="/" />
+          <TabBarItem icon="dashboard" path="/" title="Dashboard" />
         </ListWraper>
         <ListWraper>
-          <TabBarItem icon="librarry" path="/librarry" />
+          <TabBarItem icon="librarry" path="/librarry" title="Librarry" />
         </ListWraper>
         <ListWraper>
-          <TabBarItem icon="gallery" path="/gallery" />
+          <TabBarItem icon="gallery" path="/gallery" title="Gallery" />
         </ListWraper>
         <ListWraper>
-          <TabBarItem icon="news" path="/news" />
+          <TabBarItem icon="news" path="/news" title="News" />
         </ListWraper>
         <ListWraper>
-          <TabBarItem icon="about" path="/about" />
+          <TabBarItem icon="about" path="/about" title="About" />
         </ListWraper>
       </UlWrap>
     </WrapperDiv>

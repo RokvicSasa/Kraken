@@ -1,24 +1,61 @@
-import React from 'react';
-import styled from "styled-components";
+import React, { useState } from "react";
+import styled, { useTheme, keyframes } from "styled-components";
+import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { togglePopup } from "../../redux/userSlice";
+// Components
+import Backdrop from "../Other/Backdrop";
 // Assets
 import AvatarImg from "../../assets/img/avatar.png";
+import Arrow from "../../assets/svg/arrow";
 
 const Avatar = ({ small }) => {
+  const currentTheme = useTheme();
+  const dispatch = useDispatch();
+  const [ showDropdown, setShowDropdown ] = useState(false);
+
   return (
-    <AvatarWrapperDiv small={small} className="flexCenter pointer">
-      <AvatarImgWrap small={small} src={AvatarImg} alt="background" />
-      <StatusDiv small={small}></StatusDiv>
-    </AvatarWrapperDiv>
+    <Wrapper className="relative flexNullCenter" onClick={small ? () => setShowDropdown(!showDropdown) : null}>
+      <AvatarWrapperDiv small={small} className={`flexCenter relative ${small ? "pointer" : null}`}>
+        <AvatarImgWrap small={small} src={AvatarImg} alt="background" />
+        <StatusDiv small={small}></StatusDiv>
+        <ArrowWrapper showDropdown={showDropdown} className="animate">
+          <Arrow color={currentTheme.white} />
+        </ArrowWrapper>
+      </AvatarWrapperDiv>
+      {showDropdown ? (
+        <>
+          <Backdrop transparent action={() => setShowDropdown(false)} />
+          <Dropdown showDropdown={showDropdown}>
+            <DropdownInner>
+              <StyledLink to="./about" exact className="flexNullCenter animate pointer">
+                <p className="font15 medium">Edit Profile</p>
+              </StyledLink>
+              <StyledBtn className="flexNullCenter animate pointer" onClick={() => dispatch(togglePopup(true))}>
+                <p className="font15 medium">Logout</p>
+              </StyledBtn>
+            </DropdownInner>
+          </Dropdown>
+        </>
+      ) : null}
+    </Wrapper>
   );
 };
 
 export default Avatar;
 
-const AvatarWrapperDiv = styled.button`
-  width: ${(props) => (props.small ? "80px" : "88px")};
-  height: ${(props) => (props.small ? "80px" : "88px")};
+const dropdownOpenAnimation = keyframes`
+  0% { top: 18px; }
+  100% { top: 58px; }
+`;
+const Wrapper = styled.div`
+  height: ${(props) => (props.small ? "60px" : "80px")};
   margin: 0 auto;
-  position: relative;
+  background-color: transparent;
+`;
+const AvatarWrapperDiv = styled.button`
+  height: ${(props) => (props.small ? "60px" : "80px")};
+  margin: 0 auto;
   border: 0px;
   outline: none;
   background-color: transparent;
@@ -29,12 +66,61 @@ const AvatarImgWrap = styled.img`
   border-radius: 10px;
 `;
 const StatusDiv = styled.div`
-  background-color: #54fe2b;
+  background-color: ${(props) => props.theme.green};
   border: 6px solid ${(props) => (props.small ? props.theme.navbar : props.theme.sidebarBg)};
   width: ${(props) => (props.small ? "25px" : "30px")};
   height: ${(props) => (props.small ? "25px" : "30px")};
   border-radius: 50%;
   position: absolute;
-  top: ${(props) => (props.small ? "5px" : "0")};
-  right: ${(props) => (props.small ? "-8px" : "0")};
+  top: ${(props) => (props.small ? "-5px" : "-10px")};
+  left: ${(props) => (props.small ? "40px" : "55px")};
+`;
+const ArrowWrapper = styled.div`
+  margin-left: 25px;
+  width: 15px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  transform: ${(props) => (props.showDropdown ? "rotate(-180deg)" : null)};
+  @media (max-width: 900px) {
+    display: none;
+  }
+`;
+const Dropdown = styled.div`
+  width: 190px;
+  position: absolute;
+  animation-name: ${dropdownOpenAnimation};
+  animation-duration: 0.3s;
+  -webkit-animation: ${dropdownOpenAnimation} 0.3s forwards;
+  right: 0;
+  padding: 30px 0;
+  z-index: 9999;
+`;
+const DropdownInner = styled.div`
+  background-color: ${(props) => props.theme.navbar};
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  padding: 10px;
+`;
+const StyledLink = styled(NavLink)`
+  width: 100%;
+  padding: 15px 20px;
+  margin: 10px 0;
+  color: ${(props) => props.theme.white};
+  :hover {
+    color: ${(props) => props.theme.green};
+  }
+`;
+const StyledBtn = styled.button`
+  padding: 15px 20px;
+  margin: 10px 0;
+  width: 100%;
+  color: ${(props) => props.theme.white};
+  border: 0px;
+  outline: none;
+  background-color: transparent;
+  :hover {
+    color: ${(props) => props.theme.green};
+  }
 `;

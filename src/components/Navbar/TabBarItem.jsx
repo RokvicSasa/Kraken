@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
 import { NavLink, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 // Assets
 import DashboardIcon from "../../assets/svg/nav/dashboard";
 import LibrarryIcon from "../../assets/svg/nav/librarry";
@@ -8,16 +9,18 @@ import GalleryIcon from "../../assets/svg/nav/gallery";
 import NewsIcon from "../../assets/svg/nav/news";
 import AboutIcon from "../../assets/svg/nav/about";
 
-const TabBar = ({ icon, path, vertical }) => {
+const TabBar = ({ icon, path, vertical, title }) => {
   const currentTheme = useTheme();
   const location = useLocation();
+  const sidebarOpen = useSelector((state) => state.sidebar.open);
+
   let menuIcon = <div></div>;
 
   if (icon === "dashboard") {
     menuIcon = (
       <DashboardIcon
         color={
-          location.pathname === path ? (vertical ? currentTheme.main : currentTheme.green) : (vertical ? currentTheme.sidebarColor : currentTheme.tabbarLink)
+          location.pathname === path ? (vertical ? currentTheme.main : currentTheme.green) : vertical ? currentTheme.sidebarColor : currentTheme.tabbarLink
         }
       />
     );
@@ -67,10 +70,21 @@ const TabBar = ({ icon, path, vertical }) => {
     <StyledLink
       to={path}
       exact
-      className="flexCenter animate"
+      className="flexNullCenter animate"
       activeStyle={vertical ? { backgroundColor: currentTheme.body } : { backgroundColor: currentTheme.tabbarHover }}
     >
-      {menuIcon}
+      <IconWrapper className="flexCenter">{menuIcon}</IconWrapper>
+      {sidebarOpen ? (
+        <LinkText
+          className="font15 medium"
+          style={{
+            color:
+              location.pathname === path ? (vertical ? currentTheme.main : currentTheme.green) : vertical ? currentTheme.sidebarColor : currentTheme.tabbarLink,
+          }}
+        >
+          {title}
+        </LinkText>
+      ) : null}
     </StyledLink>
   );
 };
@@ -83,6 +97,14 @@ const StyledLink = styled(NavLink)`
   background-color: transparent;
   width: calc(100% - 20px);
   height: calc(100% - 10px);
+  margin: 5px auto;
+  border-radius: 10px;
+`;
+const IconWrapper = styled.div`
+  width: 80px;
+  height: 62px;
   border-radius: 5px;
-  margin: 5px 10px;
+`;
+const LinkText = styled.p`
+  color: ${(props) => props.theme.sidebarColor};
 `;

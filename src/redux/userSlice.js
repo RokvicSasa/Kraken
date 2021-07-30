@@ -55,6 +55,7 @@ export const userSlice = createSlice({
     username: null,
     email: null,
     token: null,
+    popup: false,
     isFetching: false,
     isSuccess: false,
     isError: false,
@@ -70,20 +71,23 @@ export const userSlice = createSlice({
     addToken: (state, action) => {
       state.token = action.payload;
     },
-    removeToken: (state) => {
-      state.token = null;
-    },
     addUsername: (state, action) => {
       state.username = action.payload;
-    },
-    removeUsername: (state) => {
-      state.username = null;
     },
     addEmail: (state, action) => {
       state.email = action.payload;
     },
-    removeEmail: (state) => {
+    logout: (state) => {
+      state.popup = false;
+      localStorage.removeItem("username");
+      localStorage.removeItem("email");
+      localStorage.removeItem("token");
+      state.username = null;
       state.email = null;
+      state.token = null;
+    },
+    togglePopup: (state, action) => {
+      state.popup = action.payload;
     },
   },
   extraReducers: {
@@ -120,6 +124,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { clearState, addToken, removeToken, addUsername, removeUsername, addEmail, removeEmail } = userSlice.actions;
+export const { clearState, addToken, addUsername, addEmail, logout, togglePopup } = userSlice.actions;
 
 export const userSelector = (state) => state.user;

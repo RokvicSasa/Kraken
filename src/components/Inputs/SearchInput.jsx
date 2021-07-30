@@ -25,6 +25,9 @@ const BorderStyled = styled.div`
   width: 1px;
   margin-right: 25px;
   background-color: ${(props) => props.theme.border};
+  @media (min-width: 990px) {
+    display: none;
+  }
 `;
 const SearchInputWrapper = styled.div`
   height: 50px;
@@ -32,7 +35,7 @@ const SearchInputWrapper = styled.div`
   background-color: transparent;
   border-radius: 10px;
   outline: none;
-  color: #54fe2b;
+  color: ${(props) => props.theme.green};
   font-family: "Rajdhani-SemiBold";
   ::placeholder {
     color: ${(props) => props.theme.lightText};
@@ -45,7 +48,7 @@ const SearchInputStyled = styled.input`
   background-color: transparent;
   padding: ${(props) => (props.border ? "0 0 0 20px" : "0 20px")};
   outline: none;
-  color: #54fe2b;
+  color: ${(props) => props.theme.green};
   font-family: "Rajdhani-SemiBold";
   ::placeholder {
     color: ${(props) => props.theme.lightText};

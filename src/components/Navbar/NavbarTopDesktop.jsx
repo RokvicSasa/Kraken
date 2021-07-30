@@ -1,5 +1,6 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
+import { NavLink, useLocation } from "react-router-dom";
 // Components
 import SearchInput from "../Inputs/SearchInput";
 import Notification from "../Other/Notifications";
@@ -10,21 +11,49 @@ import Settings from "../Other/Settings";
 import LogoImg from "../../assets/svg/logo";
 
 const NavbarTop = () => {
+  const currentTheme = useTheme();
+  const location = useLocation();
+
+  const getBreadcrumb = () => {
+    let name = "";
+    if (location.pathname === "/") {
+      name = "Dashboard";
+    } else {
+      name = location.pathname.substring(1).charAt(0).toUpperCase() + location.pathname.slice(2);
+    }
+    return name;
+  }
+
   return (
     <WrapperDiv className="flexSpaceCenter">
       <LeftSection className="flexSpaceCenter">
-        <LogoWrapper className="flexCenter">
-          <LogoImg width="25" height="30" color="#54FE2B" />
+        <LogoWrapper className="flexCenter" to="/" exact>
+          <LogoImg width="25" height="30" color={currentTheme.green} />
         </LogoWrapper>
       </LeftSection>
       <RightSection className="flexSpaceCenter">
+        <BreadCrumb>
+          <BreadcrumbText className="font25 bold">
+            Kraken
+            <span className="font13" style={{ margin: "0 10px" }}>
+              /
+            </span>
+            <span className="font13 regular">{getBreadcrumb()}</span>
+          </BreadcrumbText>
+        </BreadCrumb>
         <SearchInputWrapper className="flexNullCenter">
           <SearchInput border />
         </SearchInputWrapper>
-        <Notification />
-        <ModeSwitch />
-        <Avatar small />
-        <Settings />
+        <div className="flexSpaceCenter">
+          <Notification />
+          <ModeSwitch />
+          <AvatarInfo>
+            <Title className="font15 semibold">Rokvic Sasa</Title>
+            <Subtitle className="font11">Novi Sad, Serbia</Subtitle>
+          </AvatarInfo>
+          <Avatar small />
+          <Settings />
+        </div>
       </RightSection>
     </WrapperDiv>
   );
@@ -45,10 +74,13 @@ const LeftSection = styled.div`
   height: 100%;
   width: 80px;
 `;
-const LogoWrapper = styled.div`
+const LogoWrapper = styled(NavLink)`
   padding: 0 15px;
   height: 100%;
   width: 100%;
+  outline: none;
+  border: 0px;
+  background-color: transparent;
 `;
 const RightSection = styled.div`
   height: 100%;
@@ -59,4 +91,41 @@ const SearchInputWrapper = styled.div`
   min-width: 225px;
   max-width: 435px;
   height: 100%;
+`;
+const AvatarInfo = styled.div`
+  width: 100%;
+  width: 150px;
+  height: 34px;
+  text-align: right;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: 20px;
+  border-left: 1px solid ${(props) => props.theme.border2};
+  @media (max-width: 800px) {
+    display: none;
+  }
+`;
+const Title = styled.h1`
+  padding-bottom: 5px;
+  color: ${(props) => props.theme.white};
+`;
+const Subtitle = styled.h2`
+  color: ${(props) => props.theme.lightText};
+`;
+const BreadCrumb = styled.div`
+  width: 100%;
+  height: 34px;
+  max-width: 250px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  border-left: 1px solid ${(props) => props.theme.border2};
+  @media (max-width: 990px) {
+    display: none;
+  }
+`;
+const BreadcrumbText = styled.h1`
+  color: ${(props) => props.theme.white};
 `;

@@ -1,5 +1,8 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React from "react";
+import styled, { useTheme } from "styled-components";
+import { useDispatch } from "react-redux";
+import { openMobile } from "../../redux/sidebarSlice";
+import { NavLink } from "react-router-dom";
 // Components
 import SearchInput from "../Inputs/SearchInput";
 import SidebarMobile from "../Navbar/SidebarMobile";
@@ -8,17 +11,18 @@ import LogoImg from "../../assets/svg/logo";
 import BurgerImg from "../../assets/svg/burger";
 
 const NavbarTop = () => {
-  const [sidebarMobileOpen, setSidebarMobileOpen] = useState(false);
+  const currentTheme = useTheme();
+  const dispatch = useDispatch();
 
   return (
     <WrapperDiv className="flexSpaceCenter">
-      <SidebarMobile sidebarMobileOpen={sidebarMobileOpen} closeMobileSidebar={() => setSidebarMobileOpen(false)} />
+      <SidebarMobile />
       <LeftSection className="flexSpaceCenter">
-        <LogoWrapper className="flexCenter">
-          <LogoImg width="25" height="30" color="#54FE2B" />
+        <LogoWrapper className="flexCenter pointer" to="/" exact>
+          <LogoImg width="25" height="30" color={currentTheme.green} />
         </LogoWrapper>
-        <BurgerWrapper className="flexCenter pointer" onClick={() => setSidebarMobileOpen(!sidebarMobileOpen)}>
-          <BurgerImg />
+        <BurgerWrapper className="flexCenter pointer" onClick={() => dispatch(openMobile())}>
+          <BurgerImg color={currentTheme.white} />
         </BurgerWrapper>
       </LeftSection>
       <RightSection className="flexNullCenter">
@@ -48,9 +52,12 @@ const RightSection = styled.div`
   height: 100%;
   width: 70%;
 `;
-const LogoWrapper = styled.div`
+const LogoWrapper = styled(NavLink)`
   padding: 0 15px;
   height: 100%;
+  outline: none;
+  border: 0px;
+  background-color: transparent;
 `;
 const BurgerWrapper = styled.button`
   width: 70px;

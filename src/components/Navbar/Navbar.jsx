@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout, togglePopup } from "../../redux/userSlice";
 // Components
 import NavbarTop from "./NavbarTop";
 import NavbarTopDesktop from "./NavbarTopDesktop";
 import TabBar from "./TabBar";
 import SidebarDesktop from "./SidebarDesktop";
+import Popup from "../Other/Popup";
+import NotificationSidebar from "../Navbar/NotificationSidebar";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -17,6 +20,8 @@ function getWindowDimensions() {
 
 const Navbar = () => {
   const token = useSelector((state) => state.user.token);
+  const popup = useSelector((state) => state.user.popup);
+  const dispatch = useDispatch();
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
   useEffect(() => {
@@ -31,10 +36,12 @@ const Navbar = () => {
     <WrapperDiv>
       {token ? (
         <>
+          {popup ? <Popup action={() => dispatch(logout())} action2={() => dispatch(togglePopup(false))} /> : null}
           {windowDimensions.width < 577 ? (
             <>
               <NavbarTop />
               <TabBar />
+              <NotificationSidebar />
             </>
           ) : (
             <>

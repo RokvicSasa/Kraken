@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { setDarkMode, setLightMode } from "../../redux/darkModeSlice"; 
 // Assets
@@ -9,6 +9,7 @@ import MoonIcon from "../../assets/svg/moonIcon";
 const ModeSwitch = () => {
   const theme = useSelector((state) => state.darkMode.darkMode);
   const dispatch = useDispatch();
+  const currentTheme = useTheme();
 
   const toggleTheme = () => {
     if (theme === "dark") {
@@ -23,7 +24,7 @@ const ModeSwitch = () => {
   return (
     <Wrapper className="flexCenter">
       <InnerWrapper className="relative flexCenter pointer" onClick={() => toggleTheme()}>
-        {theme === "dark" ? <SunIcon color="#fff" /> : <MoonIcon color="#fff" />}
+        {theme === "dark" ? <SunIcon color={currentTheme.white} /> : <MoonIcon color={currentTheme.white} />}
       </InnerWrapper>
     </Wrapper>
   );

@@ -2,17 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
-const Librarry = () => {
+const News = () => {
   const sidebarOpen = useSelector((state) => state.sidebar.open);
 
   return (
     <WrapperDiv className={`safeArea animate ${sidebarOpen ? "sidebarOpen" : "sidebarClosed"}`}>
-      <h1 className="font25">Librarry</h1>
+      <h1 className="font25">News</h1>
     </WrapperDiv>
   );
 };
 
-export default Librarry;
+export default News;
 
 const WrapperDiv = styled.div`
   width: 100%;

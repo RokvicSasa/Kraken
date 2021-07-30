@@ -1,26 +1,32 @@
 import React from 'react';
 import styled, { useTheme } from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { closeMobile, openNotification } from "../../redux/sidebarSlice";
+import { togglePopup } from "../../redux/userSlice";
 // Components
+import Backdrop from "../../components/Other/Backdrop";
 import Avatar from "../Other/Avatar";
 import SidebarMobileItem from "../Navbar/SidebarMobileItem";
 // Assets
 import LogoImg from '../../assets/svg/logo';
 import ArrowDot from "../../assets/svg/arrowDot";
 
-const SidebarMobile = ({ sidebarMobileOpen, closeMobileSidebar }) => {
+const SidebarMobile = () => {
   const currentTheme = useTheme();
+  const dispatch = useDispatch();
+  const sidebarStatus = useSelector((state) => state.sidebar.mobileOpen);
   return (
     <>
-      {sidebarMobileOpen ? <BackdropDiv onClick={() => closeMobileSidebar()}></BackdropDiv> : null}
-      <WrapperDiv className="animate" sidebarMobileOpen={sidebarMobileOpen}>
+      {sidebarStatus ? <Backdrop action={() => dispatch(closeMobile())}></Backdrop> : null}
+      <WrapperDiv className="animate" sidebarStatus={sidebarStatus}>
         <HeaderDiv className="flexSpaceCenter">
           <div className="flexNullCenter">
             <LogoDiv>
-              <LogoImg color="#54FE2B" width="25" height="30" />
+              <LogoImg color={currentTheme.green} width="25" height="30" />
             </LogoDiv>
             <h1 className="font20 bold">Kraken</h1>
           </div>
-          <CloseSidebarBtn className="flexCenter pointer" onClick={() => closeMobileSidebar()}>
+          <CloseSidebarBtn className="flexCenter pointer" onClick={() => dispatch(closeMobile())}>
             <ArrowDot color={currentTheme.text} />
           </CloseSidebarBtn>
         </HeaderDiv>
@@ -34,13 +40,13 @@ const SidebarMobile = ({ sidebarMobileOpen, closeMobileSidebar }) => {
           </h2>
           <BodyMenu>
             <div>
-              <SidebarMobileItem title="Edit Profile" icon="pencil" />
-              <SidebarMobileItem title="Log Out" icon="logout" />
+              <SidebarMobileItem title="Edit Profile" icon="pencil" path={"/editprofile"} />
+              <SidebarMobileItem title="Log Out" icon="logout" action={() => dispatch(togglePopup(true))} />
               <BorderDiv></BorderDiv>
-              <SidebarMobileItem title="Notifications" icon="bell" />
-              <SidebarMobileItem title="Settins" icon="gear" />
+              <SidebarMobileItem title="Notifications" icon="bell" action={() => dispatch(openNotification())} />
+              <SidebarMobileItem title="Settings" icon="gear" />
               <SidebarMobileItem title="Dark Mode" icon="sun" withSwitch />
-              <SidebarMobileItem title="Add New Game" icon="plus" />
+              <SidebarMobileItem title="Add New Game" icon="plus" path={"/addgame"} />
             </div>
           </BodyMenu>
         </BodyDiv>
@@ -54,17 +60,6 @@ const SidebarMobile = ({ sidebarMobileOpen, closeMobileSidebar }) => {
 
 export default SidebarMobile;
 
-const BackdropDiv = styled.div`
-  background-color: ${(props) => props.theme.navbar};
-  width: 100%;
-  height: 100vh;
-  position: fixed;
-  overflow-y: auto;
-  top: 0;
-  left: 0;
-  opacity: 0.8;
-  z-index: 40;
-`;
 const WrapperDiv = styled.div`
   background-color: ${(props) => props.theme.sidebarBg};
   width: 80%;
@@ -72,8 +67,8 @@ const WrapperDiv = styled.div`
   position: fixed;
   overflow-y: auto;
   top: 0;
-  z-index: 50;
-  left: ${(props) => (props.sidebarMobileOpen ? "0" : "-80%")};
+  z-index: 9999;
+  left: ${(props) => (props.sidebarStatus ? "0" : "-80%")};
 `;
 // HEADER
 const HeaderDiv = styled.div`

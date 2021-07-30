@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 // Helpers
 import { PrivateRoute } from './helpers/PrivateRoute';
 import { PublicRoute } from "./helpers/PublicRoute";
@@ -11,13 +11,17 @@ import Register from "./pages/Register.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Library from "./pages/Library.jsx";
 import Gallery from "./pages/Gallery.jsx";
+import News from "./pages/News";
+import About from "./pages/About.jsx";
+import EditProfile from "./pages/EditProfile";
+import AddGame from "./pages/AddGame";
+
 // Style
 import { lightTheme, darkTheme } from "./style/Theme";
 import { GlobalStyles } from "./style/GlobalStyles";
 // Components
 import Navbar from "./components/Navbar/Navbar.jsx";
 // Redux
-import { useDispatch } from "react-redux";
 import { addToken, addUsername, addEmail } from "./redux/userSlice";
 import { setMode } from "./redux/darkModeSlice"; 
 
@@ -50,6 +54,18 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path="/gallery">
             <Gallery />
+          </PrivateRoute>
+          <PrivateRoute path="/news">
+            <News />
+          </PrivateRoute>
+          <PrivateRoute path="/about">
+            <About />
+          </PrivateRoute>
+          <PrivateRoute path="/editprofile">
+            <EditProfile />
+          </PrivateRoute>
+          <PrivateRoute path="/addgame">
+            <AddGame />
           </PrivateRoute>
           <PrivateRoute path="/">
             <Dashboard />

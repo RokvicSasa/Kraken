@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { Link } from "react-router-dom";
 // Assets
 import Logo from "../assets/svg/logo";
@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginUser, userSelector, clearState } from "../redux/userSlice";
 
 const Login = () => {
+  const currentTheme = useTheme();
   let history = useHistory();
   const dispatch = useDispatch();
   const { isFetching, isSuccess, isError, errorMessage } = useSelector(userSelector);
@@ -38,6 +39,8 @@ const Login = () => {
   useEffect(() => {
     return () => {
       dispatch(clearState());
+      setEmail("");
+      setPassword("");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -46,9 +49,13 @@ const Login = () => {
     if (isError) {
       setPageError(errorMessage);
       dispatch(clearState());
+      setEmail("");
+      setPassword("");
     }
     if (isSuccess) {
       dispatch(clearState());
+      setEmail("");
+      setPassword("");
       history.push("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -109,12 +116,12 @@ const Login = () => {
             </div>
           </div>
         </InputsDiv>
-        <Button text="LOGIN" action={() => loginHandler()} fill isLoading={isFetching} />
+        <Button text="LOGIN" action={() => loginHandler()} fill isLoading={isFetching} bgColor={currentTheme.purple} color={currentTheme.white} />
         <div className="textCenter">
           <p className="font14">Don't have an account yet?</p>
         </div>
         <Link to="/register">
-          <Button text="REGISTER" />
+          <Button text="REGISTER" bgColor={currentTheme.dark} color={currentTheme.white} border={currentTheme.darkBorder} />
         </Link>
       </InnerDiv>
       <BgImg src={AuthBg} alt="background" />

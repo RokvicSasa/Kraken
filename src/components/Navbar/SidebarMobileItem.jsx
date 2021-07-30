@@ -2,6 +2,8 @@ import React from "react";
 import styled, { useTheme } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { setDarkMode, setLightMode } from "../../redux/darkModeSlice"; 
+import { NavLink } from "react-router-dom";
+import { closeMobile } from "../../redux/sidebarSlice";
 // Components
 import Switch from "../Buttons/Switch";
 // Assets
@@ -12,13 +14,12 @@ import GearIcon from "../../assets/svg/gearIcon";
 import SunIcon from "../../assets/svg/sunIcon";
 import PlusCircleIcon from "../../assets/svg/plusCircleIcon";
 
-const SidebarMobileItem = ({ icon, title, action, withSwitch }) => {
+const SidebarMobileItem = ({ icon, title, action, withSwitch, path }) => {
   const theme = useSelector((state) => state.darkMode.darkMode);
   const dispatch = useDispatch();
   const currentTheme = useTheme();
 
   let menuIcon = <div></div>;
-
 
   if (icon === "pencil") {
     menuIcon = <PencilIcon color={currentTheme.text} />;
@@ -50,18 +51,25 @@ const SidebarMobileItem = ({ icon, title, action, withSwitch }) => {
     <>
       {withSwitch ? (
         <WrapperDiv className="flexSpaceCenter pointer" onClick={() => toggleTheme()}>
-          <div className="flexSpaceCenter">
+          <div className="flexSpaceCenter pointer">
             <IconDiv className="flexCenter">{menuIcon}</IconDiv>
-            <TitleP className="font15">{title}</TitleP>
+            <p className="font15">{title}</p>
           </div>
           <SwitchWrapper>
             <Switch SwitchOn={theme === "dark"} />
           </SwitchWrapper>
         </WrapperDiv>
+      ) : path ? (
+        <NavLink to={path} exact className="flexNullCenter animate pointer" onClick={() => dispatch(closeMobile())}>
+          <WrapperDiv className="flexNullCenter pointer">
+            <IconDiv className="flexCenter">{menuIcon}</IconDiv>
+            <p className="font15">{title}</p>
+          </WrapperDiv>
+        </NavLink>
       ) : (
-        <WrapperDiv className="flexNullCenter pointer" onClick={() => alert("pressed")}>
+        <WrapperDiv className="flexNullCenter animate pointer" onClick={ action ? () => {dispatch(closeMobile()); action()} : null}>
           <IconDiv className="flexCenter">{menuIcon}</IconDiv>
-          <TitleP className="font15">{title}</TitleP>
+          <p className="font15">{title}</p>
         </WrapperDiv>
       )}
     </>
@@ -77,6 +85,10 @@ const WrapperDiv = styled.button`
   border: 0px;
   margin: 6px 0;
   background-color: transparent;
+  color: ${(props) => props.theme.text};
+  &:hover {
+    color: ${(props) => props.theme.main};
+  }
 `;
 const IconDiv = styled.div`
   width: 26px;
@@ -85,7 +97,4 @@ const IconDiv = styled.div`
 `;
 const SwitchWrapper = styled.div`
   margin-right: 15px;
-`;
-const TitleP = styled.p`
-  color: ${(props) => props.theme.text};
 `;

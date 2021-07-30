@@ -59,6 +59,10 @@ export const GlobalStyles = createGlobalStyle`
     src: local('Rajdhani-Regular'), url("../assets/fonts/Rajdhani-Regular.ttf") format('truetype');
   }
   @font-face {
+    font-family: 'Rajdhani-Medium';
+    src: local('Rajdhani-Medium'), url("../assets/fonts/Rajdhani-Medium.ttf") format('truetype');
+  }
+  @font-face {
     font-family: 'Rajdhani-SemiBold';
     src: local('Rajdhani-SemiBold'), url("../assets/fonts/Rajdhani-SemiBold.ttf") format('truetype');
   }
@@ -79,13 +83,32 @@ export const GlobalStyles = createGlobalStyle`
   .safeArea {
     padding: 80px 0 0 0;
   }
+  .sidebarOpen {
+    margin-left: 220px;
+    width: calc(100% - 220px);
+  }
+  .sidebarClosed {
+    margin-left: 80px;
+    width: calc(100% - 80px);
+  }
   @media only screen and (max-width: 576px) {
     .safeArea {
       padding: 60px 0;
     }
+    .sidebarOpen {
+      margin-left: 0px;
+      width: 100%;
+    }
+    .sidebarClosed {
+      margin-left: 0px;
+      width: 100%;
+    }
   }
   .regular {
     font-family: 'Rajdhani-Regular';
+  }
+  .medium {
+    font-family: 'Rajdhani-Medium';
   }
   .semibold {
     font-family: 'Rajdhani-SemiBold';
@@ -201,6 +224,13 @@ export const GlobalStyles = createGlobalStyle`
       66%{background-size:4px 100%,4px 100%,4px 10% }
   }
 
+  // Scrolbar
+  ::-webkit-scrollbar {
+      width: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+      background-color: #ADAECD;
+  }
 
 
 `;

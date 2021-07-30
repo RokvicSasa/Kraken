@@ -1,9 +1,16 @@
 export const lightTheme = {
   green: "#54FE2B",
+  white: "#fff",
+  red: "#FF3E37",
+  dark: "#3F3F5F",
+  grey: "#9BA4C0",
+  softGrey: "#F7F7FA",
+  purple: "##5147BD",
   main: "#5147BD",
   main2: "#54FE2B",
   body: "#F7F7FA",
   body2: "#F7F7FA",
+  darkBorder: "#252B3D",
   text: "#3F3F5F",
   lightText: "#A39BD5",
   // Top Navbar
@@ -21,6 +28,12 @@ export const lightTheme = {
 };
 export const darkTheme = {
   green: "#54FE2B",
+  white: "#fff",
+  red: "#FF3E37",
+  dark: "#3F3F5F",
+  grey: "#9BA4C0",
+  softGrey: "#F7F7FA",
+  purple: "#5147BD",
   main: "#54FE2B",
   main2: "#5147BD",
   body: "#171B28",
@@ -31,6 +44,7 @@ export const darkTheme = {
   navbar: "#0D1223",
   border: "#1E2334",
   border2: "#1E2334",
+  darkBorder: "#252B3D",
   borderLight: "#2E3447",
   // Sidebar
   sidebarBg: "#1E2334",
