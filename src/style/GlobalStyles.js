@@ -74,12 +74,14 @@ export const GlobalStyles = createGlobalStyle`
     background: ${({ theme }) => theme.body};
     color: ${({ theme }) => theme.text};
     font-family: 'Rajdhani-Regular', serif;
+    overflow-x: hidden;
   }
   .container {
     width: 100%;
     max-width: 1184px;
     margin: 0 auto;
     padding: 30px 30px 0 30px;
+    overflow-x: hidden;
   }
   .safeArea {
     padding: 80px 0 0 0;

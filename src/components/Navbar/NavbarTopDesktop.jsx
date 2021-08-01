@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
 import { NavLink, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 // Components
 import SearchInput from "../Inputs/SearchInput";
 import Notification from "../Other/Notifications";
@@ -13,6 +14,7 @@ import LogoImg from "../../assets/svg/logo";
 const NavbarTop = () => {
   const currentTheme = useTheme();
   const location = useLocation();
+  const user = useSelector((state) => state.user)
 
   const getBreadcrumb = () => {
     let name = "";
@@ -48,8 +50,10 @@ const NavbarTop = () => {
           <Notification />
           <ModeSwitch />
           <AvatarInfo>
-            <Title className="font15 semibold">Rokvic Sasa</Title>
-            <Subtitle className="font11">Novi Sad, Serbia</Subtitle>
+            <Title className="font15 semibold">{user?.username}</Title>
+            <Subtitle className="font11">
+              {user?.city}, {user?.country}
+            </Subtitle>
           </AvatarInfo>
           <Avatar small />
           <Settings />

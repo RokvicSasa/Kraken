@@ -1,17 +1,21 @@
-import React from 'react';
+import React from "react";
 import styled, { useTheme } from "styled-components";
 import { useSelector } from "react-redux";
 import Circle from "react-circle";
 // Elements
 import Accordion from "../components/Elements/Accordion";
 import GameStatusBox from "../components/Elements/GameStatusBox";
+import Slider from "../components/Elements/Slider";
+import GenreSlider from "../components/Elements/GenreSlider";
 // Assets
 import Shield from "../assets/svg/shield";
 
 const Dashboard = () => {
   const currentTheme = useTheme();
   const sidebarOpen = useSelector((state) => state.sidebar.open);
-  
+  const gamesCount = useSelector((state) => state.games.gamesCount);
+  const platinumCount = useSelector((state) => state.games.platinumCount);
+
   return (
     <WrapperDiv className={`safeArea animate ${sidebarOpen ? "sidebarOpen" : "sidebarClosed"}`}>
       <div className="container">
@@ -53,7 +57,7 @@ const Dashboard = () => {
                 <Circle
                   size={120}
                   lineWidth={50}
-                  progress={69}
+                  progress={platinumCount && gamesCount ? (100 * platinumCount) / gamesCount : null}
                   progressColor={currentTheme.green}
                   bgColor={currentTheme.purple}
                   textColor={currentTheme.text}
@@ -70,7 +74,7 @@ const Dashboard = () => {
                     Platinum Trophies
                   </p>
                   <p className="font15 medium" style={{ color: currentTheme.green }}>
-                    7
+                    {platinumCount ? platinumCount : null}
                   </p>
                 </div>
                 <div className="flexNullCenter">
@@ -79,7 +83,7 @@ const Dashboard = () => {
                     Completed Games
                   </p>
                   <p className="font15 medium" style={{ color: currentTheme.green }}>
-                    34
+                    {gamesCount ? gamesCount : null}
                   </p>
                 </div>
               </div>
@@ -110,13 +114,23 @@ const Dashboard = () => {
           <div className="col-xs-12 col-md-6 col-lg-3">
             <GameStatusDiv>
               <div style={{ marginBottom: "15px" }}>
-                <GameStatusBox gold total={37} />
+                <GameStatusBox gold total={gamesCount ? gamesCount : null} />
               </div>
-              <GameStatusBox total={17} />
+              <GameStatusBox total={platinumCount ? platinumCount : null} />
             </GameStatusDiv>
           </div>
         </div>
       </div>
+      <SliderWrapper className="container">
+        <SliderSubitle className="font15">EXPLORE GAMES</SliderSubitle>
+        <SliderTitle className="font20 bold">Browse Completed Games</SliderTitle>
+        <Slider />
+      </SliderWrapper>
+      <SliderWrapper className="container">
+        <SliderSubitle className="font15">EXPLORE GNERES</SliderSubitle>
+        <SliderTitle className="font20 bold">Browse Games By Category</SliderTitle>
+        <GenreSlider />
+      </SliderWrapper>
     </WrapperDiv>
   );
 };
@@ -172,3 +186,17 @@ const GameStatusDiv = styled.div`
     margin: 15px 0;
   }
 `;
+const SliderWrapper = styled.div`
+  padding: 20px !important;
+  @media (max-width: 576px) {
+    padding: 5px !important;
+  }
+`;
+const SliderTitle = styled.h1`
+  padding: 10px;
+`;
+const SliderSubitle = styled.p`
+  color: ${(props) => props.theme.lightText};
+  padding: 0 10px;
+`;
+

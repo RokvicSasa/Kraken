@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { API_ENDPOINT, postData } from "../helpers/Api";
+import { API_ENDPOINT, postData, getData } from "../helpers/Api";
 
 export const signupUser = createAsyncThunk("users/signupUser", async ({ name, email, password }, thunkAPI) => {
   try {
@@ -33,12 +33,27 @@ export const signupUser = createAsyncThunk("users/signupUser", async ({ name, em
 export const loginUser = createAsyncThunk("auth/local", async ({email, password}, thunkAPI) => {
   try {
     postData.body = JSON.stringify({ identifier: email, password: password });
-    const response = await fetch(`${API_ENDPOINT}auth/local`, postData);
+    const response = await fetch(`${API_ENDPOINT}/auth/local`, postData);
     let data = await response.json();
     if (response.status === 200) {
       localStorage.setItem("token", data.jwt);
-      localStorage.setItem("username", data.user.username);
-      localStorage.setItem("email", data.user.email);
+      return data;
+    } else {
+      return thunkAPI.rejectWithValue(data);
+    }
+  } catch (e) {
+    console.log("Error", e.response.data);
+    thunkAPI.rejectWithValue(e.response.data);
+  }
+});
+
+export const getUserData = createAsyncThunk("user", async (token, thunkAPI) => {
+  try {
+    getData.headers = { Authorization: `Bearer ${token}` };
+    const response = await fetch(`${API_ENDPOINT}/users/me`, getData);
+    let data = await response.json();
+    if (response.status === 200) {
+      console.log("We got data", data);
       return data;
     } else {
       return thunkAPI.rejectWithValue(data);
@@ -52,9 +67,12 @@ export const loginUser = createAsyncThunk("auth/local", async ({email, password}
 export const userSlice = createSlice({
   name: "user",
   initialState: {
+    token: null,
     username: null,
     email: null,
-    token: null,
+    avatar: null,
+    city: null,
+    country: null,
     popup: false,
     isFetching: false,
     isSuccess: false,
@@ -71,20 +89,16 @@ export const userSlice = createSlice({
     addToken: (state, action) => {
       state.token = action.payload;
     },
-    addUsername: (state, action) => {
-      state.username = action.payload;
-    },
-    addEmail: (state, action) => {
-      state.email = action.payload;
-    },
     logout: (state) => {
       state.popup = false;
-      localStorage.removeItem("username");
-      localStorage.removeItem("email");
       localStorage.removeItem("token");
-      state.username = null;
       state.email = null;
+      state.username = null;
+      state.city = null;
+      state.country = null;
+      state.avatar = null;
       state.token = null;
+      return state;
     },
     togglePopup: (state, action) => {
       state.popup = action.payload;
@@ -109,6 +123,9 @@ export const userSlice = createSlice({
     [loginUser.fulfilled]: (state, { payload }) => {
       state.email = payload.user.email;
       state.username = payload.user.username;
+      state.city = payload.user.city;
+      state.country = payload.user.country;
+      state.avatar = payload.user.avatar;
       state.token = payload.jwt;
       state.isFetching = false;
       state.isSuccess = true;
@@ -121,9 +138,26 @@ export const userSlice = createSlice({
     [loginUser.pending]: (state) => {
       state.isFetching = true;
     },
+    [getUserData.fulfilled]: (state, { payload }) => {
+      state.email = payload.email;
+      state.username = payload.username;
+      state.city = payload.city;
+      state.country = payload.country;
+      state.avatar = payload.avatar;
+      state.isFetching = false;
+      state.isSuccess = true;
+    },
+    [getUserData.rejected]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isError = true;
+      state.errorMessage = payload ? payload.error : "there is a problem getting data from server";
+    },
+    [getUserData.pending]: (state) => {
+      state.isFetching = true;
+    },
   },
 });
 
-export const { clearState, addToken, addUsername, addEmail, logout, togglePopup } = userSlice.actions;
+export const { clearState, addToken, addUserInfo, logout, togglePopup } = userSlice.actions;
 
 export const userSelector = (state) => state.user;

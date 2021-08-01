@@ -1,4 +1,4 @@
-export const API_ENDPOINT = "http://localhost:1337/";
+export const API_ENDPOINT = "http://localhost:1337";
 
 export const getData = {
   method: "GET",

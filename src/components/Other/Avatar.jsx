@@ -1,23 +1,24 @@
 import React, { useState } from "react";
 import styled, { useTheme, keyframes } from "styled-components";
 import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { togglePopup } from "../../redux/userSlice";
+import { API_ENDPOINT } from "../../helpers/Api";
 // Components
 import Backdrop from "../Other/Backdrop";
 // Assets
-import AvatarImg from "../../assets/img/avatar.png";
 import Arrow from "../../assets/svg/arrow";
 
 const Avatar = ({ small }) => {
   const currentTheme = useTheme();
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [ showDropdown, setShowDropdown ] = useState(false);
 
   return (
     <Wrapper className="relative flexNullCenter" onClick={small ? () => setShowDropdown(!showDropdown) : null}>
       <AvatarWrapperDiv small={small} className={`flexCenter relative ${small ? "pointer" : null}`}>
-        <AvatarImgWrap small={small} src={AvatarImg} alt="background" />
+        <AvatarImgWrap small={small} src={API_ENDPOINT + user.avatar?.formats?.thumbnail?.url} alt="background" />
         <StatusDiv small={small}></StatusDiv>
         <ArrowWrapper showDropdown={showDropdown} className="animate">
           <Arrow color={currentTheme.white} />

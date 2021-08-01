@@ -12,7 +12,7 @@ const GameStatusBox = ({ gold, total }) => {
       <ImageWrapper>
         <Elements color={currentTheme.body} />
       </ImageWrapper>
-      {gold ? <GoldShield /> : <PlatinumShield />}
+      {gold ? <GoldShield /> : <PlatinumShield width="78" height="78" />}
       <div style={{ marginLeft: "20px" }}>
         <p className="font40 bold">{total}</p>
         <p className="font15 medium" style={{ color: currentTheme.lightText }}>
